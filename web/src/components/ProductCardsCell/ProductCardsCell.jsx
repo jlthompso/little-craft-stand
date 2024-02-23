@@ -23,9 +23,11 @@ export const Failure = ({ error }) => (
 export const Success = ({ products }) => {
   return (
     <>
-      {products.map((product) => {
-        return <ProductCard key={product.id} product={product} />
-      })}
+      <div className="grid--s grid--m grid--l">
+        {products.map((product) => {
+          return <ProductCard key={product.id} product={product} />
+        })}
+      </div>
     </>
   )
 }
