@@ -71,3 +71,12 @@
 @media only screen and (min-width: 1320px) {
   .grid--l { grid-template-columns: repeat(4, 1fr); }
 }
+
+.image {
+  width: 100%;
+}
+
+.product-details__container {
+  width: 50%;
+  margin: 0 auto;
+}

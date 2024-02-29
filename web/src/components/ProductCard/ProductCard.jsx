@@ -6,20 +6,19 @@ const ProductCard = ({ product }) => {
   return (
     <div className="card">
       <Link
-        to={routes.product({ id: product.id })}
+        to={routes.productDetails({ id: product.id })}
         title={'Show product ' + product.id + ' detail'}
         className="card__link"
       >
         <img
           src="https://placehold.co/200x200"
           alt={product.name}
-          style={{ width: '100%' }}
-          className="card__image"
+          className="image"
         />
       </Link>
 
       <Link
-        to={routes.product({ id: product.id })}
+        to={routes.productDetails({ id: product.id })}
         title={'Show product ' + product.id + ' detail'}
         className="card__link"
       >

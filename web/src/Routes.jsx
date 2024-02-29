@@ -15,11 +15,12 @@ const Routes = () => {
   return (
     <Router>
       <Route path="/" page={HomePage} name="home" />
+      <Route path="/products/{id:Int}" page={ProductDetailsPage} name="productDetails" />
       <Set wrap={ScaffoldLayout} title="Products" titleTo="products" buttonLabel="New Product" buttonTo="newProduct">
-        <Route path="/products/new" page={ProductNewProductPage} name="newProduct" />
-        <Route path="/products/{id:Int}/edit" page={ProductEditProductPage} name="editProduct" />
-        <Route path="/products/{id:Int}" page={ProductProductPage} name="product" />
-        <Route path="/products" page={ProductProductsPage} name="products" />
+        <Route path="/admin/products/new" page={ProductNewProductPage} name="newProduct" />
+        <Route path="/admin/products/{id:Int}/edit" page={ProductEditProductPage} name="editProduct" />
+        <Route path="/admin/products/{id:Int}" page={ProductProductPage} name="product" />
+        <Route path="/admin/products" page={ProductProductsPage} name="products" />
       </Set>
       <Set wrap={ScaffoldLayout} title="ProductImages" titleTo="productImages" buttonLabel="New ProductImage" buttonTo="newProductImage">
         <Route path="/product-images/new" page={ProductImageNewProductImagePage} name="newProductImage" />
