@@ -60,6 +60,7 @@
 /* For tablets: */
 @media only screen and (min-width: 660px) {
   .grid--s { grid-template-columns: repeat(2, 1fr); }
+  .product-details__column { flex: 50%; }
 }
 
 /* For desktop: */
@@ -77,6 +78,39 @@
 }
 
 .product-details__container {
-  width: 50%;
+  display: flex;
+  flex-direction: row;
+  width: 80%;
   margin: 0 auto;
+  gap: 15px;
+}
+
+@media (max-width: 800px) {
+  .product-details__container {
+    flex-direction: column;
+    width: 100%;
+  }
+}
+
+.product-details__column {
+  width: 100%;
+}
+
+.button {
+  border: none;
+  outline: 0;
+  padding: 12px;
+  color: white;
+  background-color: #000;
+  text-align: center;
+  cursor: pointer;
+  width: 200px;
+  font-size: 18px;
+  height: 50px;
+}
+
+.number-input {
+  max-width: 6em;
+  margin-right: 15px;
+  height: 50px;
 }

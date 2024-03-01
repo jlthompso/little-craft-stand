@@ -25,13 +25,30 @@ export const Failure = ({ error }) => (
 export const Success = ({ product }) => {
   return (
     <div className="product-details__container">
-      <h1>{product.name}</h1>
-      <img
-        src="https://placehold.co/200x200"
-        alt={product.name}
-        className="image"
-      />
-      <p>{product.description}</p>
+      <div className="product-details__column">
+        <img
+          src="https://placehold.co/200x200"
+          alt={product.name}
+          className="image"
+        />
+      </div>
+      <div className="product-details__column">
+        <h1>{product.name}</h1>
+        <h2>{'$' + Number.parseFloat(product.price).toFixed(2)}</h2>
+        <span>
+          <input
+            className="number-input"
+            type="number"
+            id="quantity"
+            name="quantity"
+            min="1"
+            max={product.quantityInStock}
+            defaultValue="1"
+          />
+          <button className="button">Add to Cart</button>
+        </span>
+        <p>{product.description}</p>
+      </div>
     </div>
   )
 }
