@@ -1,5 +1,11 @@
 import { useState } from 'react'
 
+import { number } from 'prop-types'
+
+import { routes } from '@redwoodjs/router'
+
+import { inchesToCentimeters, poundsToGrams } from 'src/lib/formatters'
+
 export const QUERY = gql`
   query ProductDetailsQuery($id: Int!) {
     product: product(id: $id) {
@@ -109,6 +115,7 @@ export const Success = ({ product }) => {
               min="1"
               max={product.quantityInStock}
               value={qty}
+              readOnly
             />
             <button
               className="icon-button"
@@ -174,7 +181,22 @@ export const Success = ({ product }) => {
               </svg>
             </button>
           </div>
-          <button className="button" disabled={product.quantityInStock <= 0}>
+          <button
+            className="button snipcart-add-item"
+            disabled={product.quantityInStock <= 0}
+            data-item-id={product.id}
+            data-item-price={product.price}
+            data-item-description={product.description}
+            data-item-image="https://placehold.co/200x200"
+            data-item-name={product.name}
+            data-item-url={routes.productDetails({ id: product.id })}
+            data-item-quantity={qty}
+            data-item-max-quantity={product.quantityInStock}
+            data-item-weight={poundsToGrams(product.weightInPounds)}
+            data-item-length={inchesToCentimeters(product.lengthInInches)}
+            data-item-height={inchesToCentimeters(product.heightInInches)}
+            data-item-width={inchesToCentimeters(product.widthInInches)}
+          >
             Add to Cart
           </button>
         </div>

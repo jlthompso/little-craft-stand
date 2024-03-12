@@ -56,3 +56,11 @@ export const timeTag = (dateTime) => {
 export const checkboxInputTag = (checked) => {
   return <input type="checkbox" checked={checked} disabled />
 }
+
+export const poundsToGrams = (pounds) => {
+  return Math.ceil(pounds * 453.6)
+}
+
+export const inchesToCentimeters = (inches) => {
+  return Math.ceil(inches * 2.54)
+}

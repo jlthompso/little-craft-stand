@@ -8,6 +8,10 @@ export const QUERY = gql`
       price
       quantityInStock
       description
+      weightInPounds
+      widthInInches
+      lengthInInches
+      heightInInches
     }
   }
 `
