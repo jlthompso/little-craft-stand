@@ -1,6 +1,4 @@
-import { useState } from 'react'
-
-import { number } from 'prop-types'
+import { useState, useEffect } from 'react'
 
 import { routes } from '@redwoodjs/router'
 
@@ -32,6 +30,26 @@ export const Failure = ({ error }) => (
 
 export const Success = ({ product }) => {
   const [qty, setQty] = useState(product.quantityInStock > 0 ? 1 : 0)
+  const [qtyInputVal, setQtyInputVal] = useState(qty)
+
+  useEffect(() => {
+    setQtyInputVal(qty)
+  }, [qty])
+
+  const handleChange = (e) => {
+    if (e.target.value === '') {
+      setQtyInputVal('')
+    } else {
+      const newQty = parseInt(e.target.value)
+      if (newQty > 0 && newQty <= product.quantityInStock) {
+        setQty(newQty)
+      }
+    }
+  }
+
+  const handleBlur = () => {
+    setQtyInputVal(qty)
+  }
 
   return (
     <div className="product-details__container">
@@ -114,8 +132,9 @@ export const Success = ({ product }) => {
               name="quantity"
               min="1"
               max={product.quantityInStock}
-              value={qty}
-              readOnly
+              value={qtyInputVal}
+              onChange={handleChange}
+              onBlur={handleBlur}
             />
             <button
               className="icon-button"
