@@ -25,7 +25,7 @@ export const Failure = ({ error }) => (
 )
 
 export const Success = ({ product }) => {
-  const [qty, setQty] = useState(1)
+  const [qty, setQty] = useState(product.quantityInStock > 0 ? 1 : 0)
 
   return (
     <div className="product-details__container">
@@ -43,7 +43,7 @@ export const Success = ({ product }) => {
           <div className="number-input-container">
             <button
               className="icon-button"
-              onClick={() => setQty(qty > 1 ? qty - 1 : 0)}
+              onClick={() => setQty(qty > 1 ? qty - 1 : qty)}
             >
               <svg
                 viewBox="-3.2 -3.2 38.40 38.40"
@@ -110,7 +110,12 @@ export const Success = ({ product }) => {
               max={product.quantityInStock}
               value={qty}
             />
-            <button className="icon-button" onClick={() => setQty(qty + 1)}>
+            <button
+              className="icon-button"
+              onClick={() =>
+                setQty(qty < product.quantityInStock ? qty + 1 : qty)
+              }
+            >
               <svg
                 viewBox="-3.2 -3.2 38.40 38.40"
                 version="1.1"
@@ -169,7 +174,9 @@ export const Success = ({ product }) => {
               </svg>
             </button>
           </div>
-          <button className="button">Add to Cart</button>
+          <button className="button" disabled={product.quantityInStock <= 0}>
+            Add to Cart
+          </button>
         </div>
         <p>{product.description}</p>
       </div>

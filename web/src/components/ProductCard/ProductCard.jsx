@@ -32,7 +32,12 @@ const ProductCard = ({ product }) => {
       <p>{truncate(product.description)}</p>
 
       <p>
-        <button className="card__button">Add to Cart</button>
+        <button
+          className="card__button"
+          disabled={product.quantityInStock <= 0}
+        >
+          Add to Cart
+        </button>
       </p>
     </div>
   )
