@@ -1,5 +1,6 @@
 import { Link, routes } from '@redwoodjs/router'
 
+import DbProductImage from 'src/components/DbProductImage'
 import { truncate } from 'src/lib/formatters'
 import { inchesToCentimeters, poundsToGrams } from 'src/lib/formatters'
 
@@ -11,11 +12,7 @@ const ProductCard = ({ product }) => {
         title={'Show product ' + product.id + ' detail'}
         className="card__link"
       >
-        <img
-          src="https://placehold.co/200x200"
-          alt={product.name}
-          className="image"
-        />
+        <DbProductImage product={product} />
       </Link>
 
       <Link
@@ -39,7 +36,7 @@ const ProductCard = ({ product }) => {
           data-item-id={product.id}
           data-item-price={product.price}
           data-item-description={product.description}
-          data-item-image="https://placehold.co/200x200"
+          data-item-image={product.images[0]?.url}
           data-item-name={product.name}
           data-item-url={routes.productDetails({ id: product.id })}
           data-item-max-quantity={product.quantityInStock}

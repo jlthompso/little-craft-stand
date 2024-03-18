@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react'
 
 import { routes } from '@redwoodjs/router'
 
+import DbProductImage from 'src/components/DbProductImage'
 import { inchesToCentimeters, poundsToGrams } from 'src/lib/formatters'
 
 export const QUERY = gql`
@@ -16,6 +17,9 @@ export const QUERY = gql`
       widthInInches
       lengthInInches
       heightInInches
+      images {
+        url
+      }
     }
   }
 `
@@ -54,11 +58,7 @@ export const Success = ({ product }) => {
   return (
     <div className="product-details__container">
       <div className="product-details__column">
-        <img
-          src="https://placehold.co/200x200"
-          alt={product.name}
-          className="image"
-        />
+        <DbProductImage product={product} />
       </div>
       <div className="product-details__column">
         <h1>{product.name}</h1>
@@ -206,7 +206,7 @@ export const Success = ({ product }) => {
             data-item-id={product.id}
             data-item-price={product.price}
             data-item-description={product.description}
-            data-item-image="https://placehold.co/200x200"
+            data-item-image={product.images[0]?.url}
             data-item-name={product.name}
             data-item-url={routes.productDetails({ id: product.id })}
             data-item-quantity={qty}
