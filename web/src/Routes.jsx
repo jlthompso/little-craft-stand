@@ -23,10 +23,10 @@ const Routes = () => {
         <Route path="/admin/products" page={ProductProductsPage} name="products" />
       </Set>
       <Set wrap={ScaffoldLayout} title="ProductImages" titleTo="productImages" buttonLabel="New ProductImage" buttonTo="newProductImage">
-        <Route path="/product-images/new" page={ProductImageNewProductImagePage} name="newProductImage" />
-        <Route path="/product-images/{id}/edit" page={ProductImageEditProductImagePage} name="editProductImage" />
-        <Route path="/product-images/{id}" page={ProductImageProductImagePage} name="productImage" />
-        <Route path="/product-images" page={ProductImageProductImagesPage} name="productImages" />
+        <Route path="/admin/product-images/new" page={ProductImageNewProductImagePage} name="newProductImage" />
+        <Route path="/admin/product-images/{id}/edit" page={ProductImageEditProductImagePage} name="editProductImage" />
+        <Route path="/admin/product-images/{id}" page={ProductImageProductImagePage} name="productImage" />
+        <Route path="/admin/product-images" page={ProductImageProductImagesPage} name="productImages" />
       </Set>
       <Route notfound page={NotFoundPage} />
     </Router>

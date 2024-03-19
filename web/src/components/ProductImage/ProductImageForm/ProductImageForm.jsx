@@ -1,14 +1,31 @@
+import { useEffect, useState } from 'react'
+
+import { ref, getDownloadURL } from 'firebase/storage'
+
 import {
   Form,
   FormError,
   FieldError,
   Label,
   TextField,
-  NumberField,
   Submit,
+  FileField,
 } from '@redwoodjs/forms'
 
+import ProductSelectFieldCell from 'src/components/ProductSelectFieldCell'
+import { storage } from 'src/lib/firebase'
+
 const ProductImageForm = (props) => {
+  const [dbRef, setDbRef] = useState(null)
+
+  useEffect(() => {
+    if (props?.productImage?.url) {
+      getDownloadURL(ref(storage, props.productImage.url)).then((url) => {
+        setDbRef(url)
+      })
+    }
+  }, [props])
+
   const onSubmit = (data) => {
     props.onSave(data, props?.productImage?.id)
   }
@@ -49,7 +66,7 @@ const ProductImageForm = (props) => {
           Product id
         </Label>
 
-        <NumberField
+        <ProductSelectFieldCell
           name="productId"
           defaultValue={props.productImage?.productId}
           className="rw-input"
@@ -57,6 +74,22 @@ const ProductImageForm = (props) => {
         />
 
         <FieldError name="productId" className="rw-field-error" />
+
+        <Label
+          name="productImage"
+          className="rw-label"
+          errorClassName="rw-label rw-label-error"
+        >
+          Upload Photo
+        </Label>
+
+        <FileField name="productImage" />
+
+        {dbRef ? (
+          <img src={dbRef} alt={props.productImage.url} className="image" />
+        ) : (
+          'no image'
+        )}
 
         <div className="rw-button-group">
           <Submit disabled={props.loading} className="rw-button rw-button-blue">
