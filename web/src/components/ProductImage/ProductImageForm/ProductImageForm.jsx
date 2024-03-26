@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react'
 
-import { ref, getDownloadURL } from 'firebase/storage'
+import { ref, getDownloadURL, uploadBytes } from 'firebase/storage'
+import ReactCrop from 'react-image-crop'
 
 import {
   Form,
@@ -14,9 +15,11 @@ import {
 
 import ProductSelectFieldCell from 'src/components/ProductSelectFieldCell'
 import { storage } from 'src/lib/firebase'
+import 'react-image-crop/dist/ReactCrop.css'
 
 const ProductImageForm = (props) => {
   const [dbRef, setDbRef] = useState(null)
+  const [crop, setCrop] = useState()
 
   useEffect(() => {
     if (props?.productImage?.url) {
@@ -27,7 +30,14 @@ const ProductImageForm = (props) => {
   }, [props])
 
   const onSubmit = (data) => {
+    console.log(data)
+    data.productId = parseInt(data.productId)
+    if (data.productImage.length) {
+      const imgRef = ref(storage, data.url)
+      uploadBytes(imgRef, data.productImage.item(0))
+    }
     props.onSave(data, props?.productImage?.id)
+    delete data.productImage
   }
 
   return (
@@ -86,7 +96,9 @@ const ProductImageForm = (props) => {
         <FileField name="productImage" />
 
         {dbRef ? (
-          <img src={dbRef} alt={props.productImage.url} className="image" />
+          <ReactCrop crop={crop} onChange={(c) => setCrop(c)}>
+            <img src={dbRef} alt={props.productImage.url} />
+          </ReactCrop>
         ) : (
           'no image'
         )}
