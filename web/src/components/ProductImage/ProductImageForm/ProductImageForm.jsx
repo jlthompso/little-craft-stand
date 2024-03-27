@@ -1,6 +1,11 @@
 import { useEffect, useState } from 'react'
 
-import { ref, getDownloadURL, uploadBytes } from 'firebase/storage'
+import {
+  ref,
+  getDownloadURL,
+  uploadBytes,
+  uploadString,
+} from 'firebase/storage'
 import ReactCrop from 'react-image-crop'
 
 import {
@@ -18,22 +23,57 @@ import { storage } from 'src/lib/firebase'
 import 'react-image-crop/dist/ReactCrop.css'
 
 const ProductImageForm = (props) => {
-  const [dbRef, setDbRef] = useState(null)
+  const [src, setSrc] = useState(null)
   const [crop, setCrop] = useState()
+  const [image, setImage] = useState(null)
+
+  const selectImage = (file) => {
+    setSrc(URL.createObjectURL(file))
+  }
+
+  const cropImageNow = () => {
+    const canvas = document.createElement('canvas')
+    const scaleX = image.naturalWidth / image.width
+    const scaleY = image.naturalHeight / image.height
+    canvas.width = crop.width
+    canvas.height = crop.height
+    const ctx = canvas.getContext('2d')
+
+    const pixelRatio = window.devicePixelRatio
+    canvas.width = crop.width * pixelRatio
+    canvas.height = crop.height * pixelRatio
+    ctx.setTransform(pixelRatio, 0, 0, pixelRatio, 0, 0)
+    ctx.imageSmoothingQuality = 'high'
+
+    ctx.drawImage(
+      image,
+      crop.x * scaleX,
+      crop.y * scaleY,
+      crop.width * scaleX,
+      crop.height * scaleY,
+      0,
+      0,
+      crop.width,
+      crop.height
+    )
+
+    return canvas.toDataURL('image/jpeg')
+  }
 
   useEffect(() => {
     if (props?.productImage?.url) {
       getDownloadURL(ref(storage, props.productImage.url)).then((url) => {
-        setDbRef(url)
+        setSrc(url)
       })
     }
   }, [props])
 
   const onSubmit = (data) => {
-    console.log(data)
     data.productId = parseInt(data.productId)
-    if (data.productImage.length) {
-      const imgRef = ref(storage, data.url)
+    const imgRef = ref(storage, data.url)
+    if (crop) {
+      uploadString(imgRef, cropImageNow(), 'data_url')
+    } else if (data.productImage.length) {
       uploadBytes(imgRef, data.productImage.item(0))
     }
     props.onSave(data, props?.productImage?.id)
@@ -93,14 +133,20 @@ const ProductImageForm = (props) => {
           Upload Photo
         </Label>
 
-        <FileField name="productImage" />
+        <FileField
+          name="productImage"
+          accept="image/*"
+          onChange={(e) => selectImage(e.target.files[0])}
+        />
 
-        {dbRef ? (
+        {src && (
           <ReactCrop crop={crop} onChange={(c) => setCrop(c)}>
-            <img src={dbRef} alt={props.productImage.url} />
+            <img
+              src={src}
+              alt={props.productImage?.url}
+              onLoad={(e) => setImage(e.target)}
+            />
           </ReactCrop>
-        ) : (
-          'no image'
         )}
 
         <div className="rw-button-group">
