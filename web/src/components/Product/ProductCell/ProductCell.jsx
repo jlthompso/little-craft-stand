@@ -12,6 +12,10 @@ export const QUERY = gql`
       widthInInches
       lengthInInches
       heightInInches
+      images {
+        id
+        url
+      }
     }
   }
 `

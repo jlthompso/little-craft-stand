@@ -8,6 +8,8 @@ import {
   Submit,
 } from '@redwoodjs/forms'
 
+import DbProductImage from 'src/components/DbProductImage/DbProductImage'
+
 const ProductForm = (props) => {
   const onSubmit = (data) => {
     props.onSave(data, props?.product?.id)
@@ -165,6 +167,15 @@ const ProductForm = (props) => {
         />
 
         <FieldError name="heightInInches" className="rw-field-error" />
+
+        <h4>Product Images</h4>
+        <div className="image-gallery__container">
+          {props.product?.images.map((image) => (
+            <div key={image.id} className="thumbnail-image__container">
+              <DbProductImage dbUrl={image.url} />
+            </div>
+          ))}
+        </div>
 
         <div className="rw-button-group">
           <Submit disabled={props.loading} className="rw-button rw-button-blue">

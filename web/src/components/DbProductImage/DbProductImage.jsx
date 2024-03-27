@@ -4,20 +4,22 @@ import { ref, getDownloadURL } from 'firebase/storage'
 
 import { storage } from 'src/lib/firebase'
 
-const DbProductImage = ({ product }) => {
+const DbProductImage = (props) => {
   const [url, setUrl] = useState(null)
   const [loading, setLoading] = useState(true)
 
   useEffect(() => {
-    if (product.images.length > 0) {
-      getDownloadURL(ref(storage, product.images[0].url)).then((url) => {
+    if (props.dbUrl || props.product?.images.length > 0) {
+      getDownloadURL(
+        ref(storage, props.dbUrl || props.product?.images[0].url)
+      ).then((url) => {
         setUrl(url)
         setLoading(false)
       })
     } else {
       setLoading(false)
     }
-  }, [product.images])
+  }, [props])
 
   if (url === null && !loading) {
     return (
@@ -48,7 +50,13 @@ const DbProductImage = ({ product }) => {
       </div>
     )
   } else {
-    return <img src={url} alt={product.name} className="image" />
+    return (
+      <img
+        src={url}
+        alt={props.dbUrl || props.product?.images[0].url}
+        className="image"
+      />
+    )
   }
 }
 

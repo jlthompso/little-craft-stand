@@ -139,6 +139,8 @@ const ProductImageForm = (props) => {
           onChange={(e) => selectImage(e.target.files[0])}
         />
 
+        <br />
+
         {src && (
           <ReactCrop crop={crop} onChange={(c) => setCrop(c)}>
             <img

@@ -180,3 +180,13 @@ button:disabled {
 .placeholder__image {
   width: 50px;
 }
+
+.image-gallery__container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 15px;
+}
+
+.thumbnail-image__container {
+  width: 200px;
+}

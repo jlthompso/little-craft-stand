@@ -1,5 +1,4 @@
 import { navigate, routes } from '@redwoodjs/router'
-
 import { useMutation } from '@redwoodjs/web'
 import { toast } from '@redwoodjs/web/toast'
 
@@ -17,6 +16,10 @@ export const QUERY = gql`
       widthInInches
       lengthInInches
       heightInInches
+      images {
+        id
+        url
+      }
     }
   }
 `
