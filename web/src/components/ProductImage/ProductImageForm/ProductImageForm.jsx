@@ -6,6 +6,7 @@ import {
   uploadBytes,
   uploadString,
 } from 'firebase/storage'
+import { useForm } from 'react-hook-form'
 import ReactCrop from 'react-image-crop'
 
 import {
@@ -23,12 +24,15 @@ import { storage } from 'src/lib/firebase'
 import 'react-image-crop/dist/ReactCrop.css'
 
 const ProductImageForm = (props) => {
+  const formMethods = useForm()
+
   const [src, setSrc] = useState(null)
   const [crop, setCrop] = useState()
   const [image, setImage] = useState(null)
 
   const selectImage = (file) => {
     setSrc(URL.createObjectURL(file))
+    formMethods.setValue('url', file.name)
   }
 
   const cropImageNow = () => {
@@ -82,7 +86,7 @@ const ProductImageForm = (props) => {
 
   return (
     <div className="rw-form-wrapper">
-      <Form onSubmit={onSubmit} error={props.error}>
+      <Form formMethods={formMethods} onSubmit={onSubmit} error={props.error}>
         <FormError
           error={props.error}
           wrapperClassName="rw-form-error-wrapper"

@@ -1,9 +1,10 @@
 import { Link, routes, navigate } from '@redwoodjs/router'
 import { useMutation } from '@redwoodjs/web'
-
 import { toast } from '@redwoodjs/web/toast'
 
 import 'src/lib/formatters'
+
+import DbProductImage from 'src/components/DbProductImage'
 
 const DELETE_PRODUCT_MUTATION = gql`
   mutation DeleteProductMutation($id: Int!) {
@@ -75,6 +76,23 @@ const Product = ({ product }) => {
             <tr>
               <th>Height in inches</th>
               <td>{product.heightInInches}</td>
+            </tr>
+            <tr>
+              <th>Product Images</th>
+              <td>
+                <div className="image-gallery__container">
+                  {product?.images.map((image) => (
+                    <div key={image.id} className="thumbnail-image__container">
+                      <Link
+                        to={routes.productImage({ id: image.id })}
+                        title={'Show product image ' + image.url + ' detail'}
+                      >
+                        <DbProductImage dbUrl={image.url} />
+                      </Link>
+                    </div>
+                  ))}
+                </div>
+              </td>
             </tr>
           </tbody>
         </table>

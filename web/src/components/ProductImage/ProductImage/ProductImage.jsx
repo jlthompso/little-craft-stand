@@ -1,9 +1,13 @@
 import { Link, routes, navigate } from '@redwoodjs/router'
 import { useMutation } from '@redwoodjs/web'
-
 import { toast } from '@redwoodjs/web/toast'
 
 import 'src/lib/formatters'
+
+import DbProductImage from 'src/components/DbProductImage'
+import { storage } from 'src/lib/firebase'
+
+import { ref, deleteObject } from 'firebase/storage'
 
 const DELETE_PRODUCT_IMAGE_MUTATION = gql`
   mutation DeleteProductImageMutation($id: String!) {
@@ -25,8 +29,15 @@ const ProductImage = ({ productImage }) => {
   })
 
   const onDeleteClick = (id) => {
-    if (confirm('Are you sure you want to delete productImage ' + id + '?')) {
-      deleteProductImage({ variables: { id } })
+    if (
+      confirm(
+        'Are you sure you want to delete productImage ' + productImage.url + '?'
+      )
+    ) {
+      deleteProductImage({ variables: { id } }).then(() => {
+        const imgRef = ref(storage, productImage.url)
+        deleteObject(imgRef)
+      })
     }
   }
 
@@ -51,6 +62,14 @@ const ProductImage = ({ productImage }) => {
             <tr>
               <th>Product id</th>
               <td>{productImage.productId}</td>
+            </tr>
+            <tr>
+              <th>Product Image</th>
+              <td>
+                <div className="thumbnail-image__container">
+                  <DbProductImage dbUrl={productImage.url} />
+                </div>
+              </td>
             </tr>
           </tbody>
         </table>

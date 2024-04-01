@@ -7,6 +7,7 @@ import {
   NumberField,
   Submit,
 } from '@redwoodjs/forms'
+import { Link, routes } from '@redwoodjs/router'
 
 import DbProductImage from 'src/components/DbProductImage/DbProductImage'
 
@@ -172,7 +173,12 @@ const ProductForm = (props) => {
         <div className="image-gallery__container">
           {props.product?.images.map((image) => (
             <div key={image.id} className="thumbnail-image__container">
-              <DbProductImage dbUrl={image.url} />
+              <Link
+                to={routes.productImage({ id: image.id })}
+                title={'Show product image ' + image.id + ' detail'}
+              >
+                <DbProductImage dbUrl={image.url} />
+              </Link>
             </div>
           ))}
         </div>
