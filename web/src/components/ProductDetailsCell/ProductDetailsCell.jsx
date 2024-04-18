@@ -19,6 +19,7 @@ export const QUERY = gql`
       heightInInches
       images {
         url
+        id
       }
     }
   }
@@ -35,6 +36,7 @@ export const Failure = ({ error }) => (
 export const Success = ({ product }) => {
   const [qty, setQty] = useState(product.quantityInStock > 0 ? 1 : 0)
   const [qtyInputVal, setQtyInputVal] = useState(qty)
+  const [spotlightImgUrl, setSpotlightImgUrl] = useState(product.images[0]?.url)
 
   useEffect(() => {
     setQtyInputVal(qty)
@@ -58,7 +60,18 @@ export const Success = ({ product }) => {
   return (
     <div className="product-details__container">
       <div className="product-details__column">
-        <DbProductImage product={product} />
+        <DbProductImage dbUrl={spotlightImgUrl} />
+        <div className="image-gallery__container">
+          {product?.images.map((image) => (
+            <div key={image.id} className="thumbnail-image__container">
+              <DbProductImage
+                dbUrl={image.url}
+                thumbnail
+                onClick={() => setSpotlightImgUrl(image.url)}
+              />
+            </div>
+          ))}
+        </div>
       </div>
       <div className="product-details__column">
         <h1>{product.name}</h1>

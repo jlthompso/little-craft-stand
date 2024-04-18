@@ -87,7 +87,7 @@ const Product = ({ product }) => {
                         to={routes.productImage({ id: image.id })}
                         title={'Show product image ' + image.url + ' detail'}
                       >
-                        <DbProductImage dbUrl={image.url} />
+                        <DbProductImage dbUrl={image.url} thumbnail />
                       </Link>
                     </div>
                   ))}

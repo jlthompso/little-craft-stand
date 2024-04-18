@@ -54,7 +54,8 @@ const DbProductImage = (props) => {
       <img
         src={url}
         alt={props.dbUrl || props.product?.images[0].url}
-        className="image"
+        className={props.thumbnail ? 'thumbnail-image' : 'image'}
+        onClick={props.onClick}
       />
     )
   }
