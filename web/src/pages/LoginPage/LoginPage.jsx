@@ -15,11 +15,6 @@ const LoginPage = () => {
       new firebaseui.auth.AuthUI(getAuth())
 
     ui.start('#firebaseui-auth-container', {
-      // callbacks: {
-      //   signInSuccessWithAuthResult: function (authResult, redirectUrl) {
-      //     return false
-      //   },
-      // },
       signInSuccessUrl: routes.products(),
       signInOptions: [
         {
