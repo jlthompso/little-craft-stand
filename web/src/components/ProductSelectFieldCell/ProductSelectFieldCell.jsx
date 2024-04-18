@@ -1,7 +1,7 @@
 import { SelectField } from '@redwoodjs/forms'
 
 export const QUERY = gql`
-  query FindProducts {
+  query FindProductSelectOptions {
     products {
       id
       name
