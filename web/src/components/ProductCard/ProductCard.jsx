@@ -38,7 +38,7 @@ const ProductCard = ({ product }) => {
           data-item-description={product.description}
           data-item-image={product.images[0]?.url}
           data-item-name={product.name}
-          data-item-url={routes.productDetails({ id: product.id })}
+          data-item-url="/"
           data-item-max-quantity={product.quantityInStock}
           data-item-weight={poundsToGrams(product.weightInPounds)}
           data-item-length={inchesToCentimeters(product.lengthInInches)}
