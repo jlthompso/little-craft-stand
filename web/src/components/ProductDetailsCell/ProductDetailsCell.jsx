@@ -221,7 +221,7 @@ export const Success = ({ product }) => {
             data-item-description={product.description}
             data-item-image={product.images[0]?.url}
             data-item-name={product.name}
-            data-item-url={routes.productDetails({ id: product.id })}
+            data-item-url={`${process.env.REDWOOD_ENV_API_URL}/validateProduct?id=${product.id}`}
             data-item-quantity={qty}
             data-item-max-quantity={product.quantityInStock}
             data-item-weight={poundsToGrams(product.weightInPounds)}
