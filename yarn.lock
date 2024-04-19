@@ -7904,7 +7904,6 @@ __metadata:
   dependencies:
     "@redwoodjs/api": "npm:7.0.6"
     "@redwoodjs/auth-firebase-api": "npm:7.0.6"
-    "@redwoodjs/cli-data-migrate": "npm:^7.4.1"
     "@redwoodjs/graphql-server": "npm:7.0.6"
     firebase-admin: "npm:11.11.1"
   languageName: unknown
@@ -19649,6 +19648,7 @@ __metadata:
   resolution: "root-workspace-0b6124@workspace:."
   dependencies:
     "@redwoodjs/auth-firebase-setup": "npm:7.0.6"
+    "@redwoodjs/cli-data-migrate": "npm:^7.4.1"
     "@redwoodjs/core": "npm:7.0.6"
   languageName: unknown
   linkType: soft

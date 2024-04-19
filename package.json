@@ -8,6 +8,7 @@
   },
   "devDependencies": {
     "@redwoodjs/auth-firebase-setup": "7.0.6",
+    "@redwoodjs/cli-data-migrate": "^7.4.1",
     "@redwoodjs/core": "7.0.6"
   },
   "eslintConfig": {
