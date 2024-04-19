@@ -24,13 +24,6 @@ export const QUERY = gql`
     }
   }
 `
-
-export const Empty = () => <div>Empty</div>
-
-export const Failure = ({ error }) => (
-  <div style={{ color: 'red' }}>Error: {error?.message}</div>
-)
-
 export const Success = ({ product }) => {
   const [qty, setQty] = useState(product.quantityInStock > 0 ? 1 : 0)
   const [qtyInputVal, setQtyInputVal] = useState(qty)
