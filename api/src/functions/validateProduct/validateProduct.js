@@ -1,10 +1,7 @@
 import { logger } from 'src/lib/logger'
 import { product } from 'src/services/products/products'
 
-import {
-  poundsToGrams,
-  inchesToCentimeters,
-} from '../../../../web/src/lib/formatters'
+import { poundsToGrams, inchesToCentimeters } from '/web/src/lib/formatters'
 
 /**
  * The handler function is your code that processes http request events.
