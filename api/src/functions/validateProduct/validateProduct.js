@@ -38,7 +38,7 @@ export const handler = async (event, _context) => {
       id: id,
       price: price,
       customFields: [],
-      url: `${process.env.REDWOOD_ENV_API_URL}/validateProduct?id=${product.id}`,
+      url: `${process.env.REDWOOD_ENV_API_URL}/validateProduct?id=${id}`,
       dimensions: {
         weight: weightInPounds,
         width: widthInInches,
