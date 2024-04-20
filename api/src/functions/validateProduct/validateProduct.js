@@ -20,12 +20,9 @@ import { product } from 'src/services/products/products'
 export const handler = async (event, _context) => {
   logger.info(`${event.httpMethod} ${event.path}: validateProduct function`)
 
-  console.log(event)
-
   const { id } = event.queryStringParameters
   const {
     price,
-    url,
     weightInPounds,
     widthInInches,
     lengthInInches,
@@ -41,7 +38,7 @@ export const handler = async (event, _context) => {
       id: id,
       price: price,
       customFields: [],
-      url: url,
+      url: `${process.env.REDWOOD_ENV_API_URL}/validateProduct?id=${product.id}`,
       dimensions: {
         weight: weightInPounds,
         width: widthInInches,
