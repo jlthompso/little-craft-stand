@@ -31,8 +31,12 @@ export const handler = async (event, _context) => {
 
   return {
     statusCode: 200,
+    mode: 'cors',
     headers: {
       'Content-Type': 'application/json',
+      cors: {
+        origin: '*',
+      },
     },
     body: JSON.stringify({
       id: id,
