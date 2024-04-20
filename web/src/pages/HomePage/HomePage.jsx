@@ -9,7 +9,9 @@ const HomePage = () => {
     document.addEventListener('snipcart.ready', () => {
       // You can safely use window.Snipcart here
       window.Snipcart.events.on('cart.confirmed', (cartConfirmResponse) => {
-        console.log(cartConfirmResponse)
+        cartConfirmResponse.items.items.forEach((item) => {
+          console.log(item.id, item.quantity)
+        })
       })
 
       window.Snipcart.events.on('cart.confirm.error', (confirmError) => {
