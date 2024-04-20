@@ -1,8 +1,6 @@
 import { logger } from 'src/lib/logger'
 import { product } from 'src/services/products/products'
 
-import { poundsToGrams, inchesToCentimeters } from '/web/src/lib/formatters'
-
 /**
  * The handler function is your code that processes http request events.
  * You can use return and throw to send a response or error, respectively.
@@ -21,6 +19,14 @@ import { poundsToGrams, inchesToCentimeters } from '/web/src/lib/formatters'
  */
 export const handler = async (event, _context) => {
   logger.info(`${event.httpMethod} ${event.path}: validateProduct function`)
+
+  const poundsToGrams = (pounds) => {
+    return Math.ceil(pounds * 453.6)
+  }
+
+  const inchesToCentimeters = (inches) => {
+    return Math.ceil(inches * 2.54)
+  }
 
   const { id } = event.queryStringParameters
   const {
