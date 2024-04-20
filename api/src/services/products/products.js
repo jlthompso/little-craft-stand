@@ -34,3 +34,10 @@ export const Product = {
     return db.product.findUnique({ where: { id: root?.id } }).images()
   },
 }
+
+export const decrementProductQuantity = ({ id, qty }) => {
+  return db.product.update({
+    data: { quantityInStock: { decrement: qty || 1 } },
+    where: { id },
+  })
+}

@@ -43,5 +43,6 @@ export const schema = gql`
     createProduct(input: CreateProductInput!): Product! @requireAuth
     updateProduct(id: Int!, input: UpdateProductInput!): Product! @requireAuth
     deleteProduct(id: Int!): Product! @requireAuth
+    decrementProductQuantity(id: Int!, qty: Int!): Product! @skipAuth
   }
 `
