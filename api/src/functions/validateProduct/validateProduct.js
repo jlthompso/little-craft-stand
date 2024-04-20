@@ -1,6 +1,11 @@
 import { logger } from 'src/lib/logger'
 import { product } from 'src/services/products/products'
 
+import {
+  poundsToGrams,
+  inchesToCentimeters,
+} from '../../../../web/src/lib/formatters'
+
 /**
  * The handler function is your code that processes http request events.
  * You can use return and throw to send a response or error, respectively.
@@ -33,7 +38,6 @@ export const handler = async (event, _context) => {
     statusCode: 200,
     headers: {
       'Content-Type': 'application/json',
-      'Access-Control-Allow-Origin': '*',
     },
     body: JSON.stringify({
       id: id,
@@ -41,10 +45,10 @@ export const handler = async (event, _context) => {
       customFields: [],
       url: `${process.env.REDWOOD_ENV_API_URL}/validateProduct?id=${id}`,
       dimensions: {
-        weight: weightInPounds,
-        width: widthInInches,
-        height: heightInInches,
-        length: lengthInInches,
+        weight: poundsToGrams(weightInPounds),
+        width: inchesToCentimeters(widthInInches),
+        height: inchesToCentimeters(heightInInches),
+        length: inchesToCentimeters(lengthInInches),
       },
     }),
   }
